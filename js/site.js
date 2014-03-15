@@ -22,17 +22,40 @@ function init() {
 				}
 				geojson['features'].push(newFeature);	
 			});
-			console.log(geojson)
+			console.log(geojson);
 			mapIt(geojson);
 		},
-		simpleSheet: true,
+		simpleSheet: true
 	});
  
 	function mapIt(groups) {
 		var map = L.mapbox.map('map', 'examples.map-9ijuk24y');
-	    var featureLayer = L.mapbox.featureLayer(groups)
-		    .addTo(map);
+	    var featureLayer = map.featureLayer.setGeoJSON(groups);
 		map.fitBounds(featureLayer.getBounds());
+		
+		// get each group and append to the groups element
+		var info = document.getElementById('groups');
+		map.featureLayer.eachLayer(function(marker) {
+			console.log('waka');
+			var link = info.appendChild(document.createElement('div'));
+			link.className = 'group';
+			var group = marker.feature.properties;
+			link.innerHTML = '<h2>' + group.name + '</h2>' + '<p><strong>Description: </strong>' + group.desc + '</p>';
+			link.onclick = function() {
+				if(/active/.test(this.className)) {
+					this.className = this.className.replace(/active/, '').replace(/\s\s*$/, '');
+				} else {
+					var siblings = info.getElementsByClassName('group');
+					for(var mug=0; mug<siblings.length; mug++) {
+						siblings[mug].className = siblings[mug].className.replace(/active/, '').replace(/\s\s*$/, '');
+					};
+					this.className += ' active';
+					map.panTo(marker.getLatLng());
+					marker.openPopup();
+				}
+				return false;
+			}
+		});
 	}
 
 	// add button
