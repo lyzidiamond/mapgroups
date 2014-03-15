@@ -14,10 +14,13 @@ function init() {
 						"coordinates": [parseFloat(val.lon), parseFloat(val.lat)]
 					},
 					"properties": {
-						"name": val.name,
-						"desc": val.desc,
+						"title": val.name,
+						"description": val.desc,
+						"tagline": val.tagline,
 						"twitter": val.twitter,
-						"contact": val.contact
+						"contact": val.contact,
+						"marker-size": "large",
+						"marker-symbol": "restaurant"
 					}
 				}
 				geojson['features'].push(newFeature);	
@@ -30,7 +33,8 @@ function init() {
  
 	function mapIt(groups) {
 		var map = L.mapbox.map('map', 'examples.map-9ijuk24y');
-	    var featureLayer = map.featureLayer.setGeoJSON(groups);
+	    var featureLayer = map.featureLayer
+	    	.setGeoJSON(groups);
 		map.fitBounds(featureLayer.getBounds());
 		
 		// get each group and append to the groups element
@@ -40,7 +44,7 @@ function init() {
 			var link = info.appendChild(document.createElement('div'));
 			link.className = 'group';
 			var group = marker.feature.properties;
-			link.innerHTML = '<h2>' + group.name + '</h2>' + '<p><strong>Description: </strong>' + group.desc + '</p>';
+			link.innerHTML = '<h2>' + group.title + '</h2>' + '<p><strong>Description: </strong>' + group.description + '</p>';
 			link.onclick = function() {
 				if(/active/.test(this.className)) {
 					this.className = this.className.replace(/active/, '').replace(/\s\s*$/, '');
