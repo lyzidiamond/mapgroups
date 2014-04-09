@@ -11,12 +11,12 @@ function init() {
 					"type": "Feature",
 					"geometry": {
 						"type": "Point",
-						"coordinates": [parseFloat(val.lon), parseFloat(val.lat)]
+						"coordinates": [parseFloat(val.longitude), parseFloat(val.latitude)]
 					},
 					"properties": {
-						"title": val.name,
-						"description": val.desc,
-						"tagline": val.tagline,
+						"title": val.groupname,
+						"description": val.groupdescription,
+						// "tagline": val.tagline,
 						"twitter": val.twitter,
 						"contact": val.contact,
 						"marker-size": "large",
