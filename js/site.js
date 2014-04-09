@@ -15,12 +15,13 @@ function init() {
 					},
 					"properties": {
 						"title": val.groupname,
-						"description": val.groupdescription,
-						// "tagline": val.tagline,
+						"description": val.fulldescription,
+						"shortdesc": val.shortdescription,
 						"twitter": val.twitter,
-						"contact": val.contact,
+						"contact": val.contactname,
+						"contactEmail": val.contactemail,
 						"marker-size": "large",
-						"marker-symbol": "restaurant"
+						"marker-symbol": ""
 					}
 				}
 				geojson['features'].push(newFeature);	
@@ -44,7 +45,8 @@ function init() {
 			var link = info.appendChild(document.createElement('div'));
 			link.className = 'group';
 			var group = marker.feature.properties;
-			link.innerHTML = '<h2>' + group.title + '</h2>' + '<p><strong>Description: </strong>' + group.description + '</p>';
+			link.innerHTML = '<div class="group-header"><h2>' + group.title + '</h2>' + '<p class="short-desc">' + group.shortdesc + '</p><div class="info">' + marker.feature.geometry.coordinates[1] + ', ' + marker.feature.geometry.coordinates[0] + '</div></div>';
+			link.innerHTML += '<div class="more"><p class="description">' + group.description + '</p><p class="contact"><span class="title">Contact</span><br>' + group.contact + '<br><em>' + group.contactEmail + '</em></p></div>';
 			link.onclick = function() {
 				if(/active/.test(this.className)) {
 					this.className = this.className.replace(/active/, '').replace(/\s\s*$/, '');
