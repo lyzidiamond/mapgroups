@@ -21,12 +21,12 @@ function init() {
 						"contact": val.contactname,
 						"contactEmail": val.contactemail,
 						"marker-size": "large",
+						"marker-color": "#4682b4",
 						"marker-symbol": ""
 					}
 				}
 				geojson['features'].push(newFeature);	
 			});
-			console.log(geojson);
 			mapIt(geojson);
 		},
 		simpleSheet: true
@@ -37,11 +37,19 @@ function init() {
 	    var featureLayer = map.featureLayer
 	    	.setGeoJSON(groups);
 		map.fitBounds(featureLayer.getBounds());
+
+		// custom popup
+		featureLayer.eachLayer(function(marker) {
+		    var content = '<h1>size: ' + marker.feature.properties.size + '<\/h1>' +
+		        '<h2>population: ' + marker.feature.properties.population + '<\/h2>';
+		    marker.bindPopup(content);
+		});
 		
-		// get each group and append to the groups element
+		// get each feature and populate page with properties
 		var info = document.getElementById('groups');
 		map.featureLayer.eachLayer(function(marker) {
-			console.log('waka');
+
+			// append to left column
 			var link = info.appendChild(document.createElement('div'));
 			link.className = 'group';
 			var group = marker.feature.properties;
@@ -61,6 +69,10 @@ function init() {
 				}
 				return false;
 			}
+
+			// set popup content
+			var popupContent = '<h2>' + group.title + '</h2><p>' + group.shortdesc + '</p>';
+			marker.bindPopup(popupContent);
 		});
 	}
 

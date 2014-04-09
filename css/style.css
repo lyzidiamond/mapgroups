@@ -84,6 +84,8 @@
 #add.do-it {
 	height:100%;
 } 
+
+/* Groups */
 .group {
 	border-bottom:1px #e5e5e5 solid;
 	cursor:pointer;
@@ -98,6 +100,7 @@
 	-moz-box-sizing:border-box; 
 	-webkit-box-sizing:border-box;
 	padding:25px 20px;
+	color:#555;
 }
 .group:hover {
 	background-color:#f6f6f6;
@@ -142,3 +145,24 @@
 }
 .group p.short-desc {}
 .group p.description {}
+
+/* Popups */
+.leaflet-popup-content-wrapper {
+	background-color:transparent;
+	padding:0;
+}
+.leaflet-popup-tip {
+	border-top: 10px solid #1c3448;
+}
+.leaflet-popup-content {
+	background-color:#1c3448;
+	color:#f6f6f6;
+	border-radius:5px;
+}
+.leaflet-popup-content h2,
+.leaflet-popup-content p {
+	margin-bottom:0;
+}
+.leaflet-popup-content p {
+	font-size:1em;
+}
