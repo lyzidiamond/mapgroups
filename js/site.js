@@ -97,6 +97,12 @@ function init() {
 	$('#open-add, #close-add').click(function(){
 		$('#add').toggleClass('active');
 	});
+
+	// form sequencing
+	$('#start').click(function(){
+		$('#start-field').hide(200);
+		$(this).next('.field').show(200);
+	});
 }
 
 window.onLoad = init();
