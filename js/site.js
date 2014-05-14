@@ -38,6 +38,23 @@ function init() {
 	    	.setGeoJSON(groups);
 		map.fitBounds(featureLayer.getBounds());
 
+		L.Control.Command = L.Control.extend({
+			options: {
+			    position: 'topleft',
+			},
+			onAdd: function (map) {
+			    var controlDiv = L.DomUtil.create('div', 'leaflet-control-command');
+			    L.DomEvent
+			        .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
+			        .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
+			    .addListener(controlDiv, 'click', function () { MapShowCommand(); });
+
+			    var controlUI = L.DomUtil.create('div', 'leaflet-control-command-interior', controlDiv);
+			    controlUI.title = 'Map Commands';
+			    return controlDiv;
+			}
+		});
+
 		// custom popup
 		featureLayer.eachLayer(function(marker) {
 		    var content = '<h1>size: ' + marker.feature.properties.size + '<\/h1>' +
@@ -76,14 +93,9 @@ function init() {
 		});
 	}
 
-	// add button
-	$('#add-button').click(function(){
-		$('#add').toggleClass('do-it');
-		$(this).toggleClass('do-it');
-	});
-	$('#close-add').click(function(){
-		$('#add').toggleClass('do-it');
-		$('#add-button').toggleClass('do-it');
+	// submit a new map
+	$('#open-add, #close-add').click(function(){
+		$('#add').toggleClass('active');
 	});
 }
 
