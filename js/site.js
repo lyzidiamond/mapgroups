@@ -33,27 +33,24 @@ function init() {
 	});
  
 	function mapIt(groups) {
-		var map = L.mapbox.map('map', 'examples.map-9ijuk24y');
+		var map = L.mapbox.map('map', 'examples.map-20v6611k');
 	    var featureLayer = map.featureLayer
 	    	.setGeoJSON(groups);
 		map.fitBounds(featureLayer.getBounds());
 
-		L.Control.Command = L.Control.extend({
-			options: {
-			    position: 'topleft',
-			},
-			onAdd: function (map) {
-			    var controlDiv = L.DomUtil.create('div', 'leaflet-control-command');
-			    L.DomEvent
-			        .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
-			        .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
-			    .addListener(controlDiv, 'click', function () { MapShowCommand(); });
-
-			    var controlUI = L.DomUtil.create('div', 'leaflet-control-command-interior', controlDiv);
-			    controlUI.title = 'Map Commands';
-			    return controlDiv;
-			}
+		// mousemove on map event
+		$('#mg-lat, #mg-lng').focus(function(){
+			map.on('click', function(e){
+				var usrLat = e.latlng.lat,
+						usrLng = e.latlng.lng;
+				console.log(usrLat, usrLng);
+				$('#mg-lat').val(usrLat);
+				$('#mg-lng').val(usrLng);
+			});
 		});
+		
+
+	
 
 		// custom popup
 		featureLayer.eachLayer(function(marker) {
