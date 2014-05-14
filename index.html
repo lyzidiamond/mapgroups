@@ -27,27 +27,36 @@
 	</ul>
 </nav>
 <section id="add">
+	<div id="progress"></div>
 	<div id="close-add">&times;</div>
 	<div id="fields">
 		<form>
 			<div class="field first current" id="start-field">
 				<label>So you want to add a Mapgroup? Just fill out the fields and submit at the end.</label>
-				<input type="submit" value="Add a Group" id="start">
+				<button class="next" id="start-btn">Submit Group</button>
 			</div>
 			<div class="field">
 				<label>What's the name of your Mapgroup?</label>
 				<input id="mg-name">
-				<input type="submit" value="Next" class="next" id="mg-name-btn">
+				<button class="next" id="mg-name-btn">Next</button>
 			</div>
 			<div class="field">
 				<label>Briefly describe the Mapgroup.</label>
 				<input id="mg-short-desc">
-				<input type="submit" value="Next" class="next" id="mg-short-desc-btn">
+				<button class="prev" id="mg-short-desc-btn">Previous</button>
+				<button class="next" id="mg-short-desc-btn">Next</button>
 			</div>
 			<div class="field">
 				<label>Give a full description of the Mapgroup.</label>
 				<input id="mg-desc">
-				<input type="submit" value="Next" class="next" id="mg-desc-btn">
+				<button class="prev" id="mg-desc-btn">Previous</button>
+				<button class="next" id="mg-desc-btn">Next</button>
+			</div>
+			<div class="field">
+				<label>Latitude</label>
+				<input id="mg-desc">
+				<button class="prev" id="mg-lat-btn">Previous</button>
+				<button class="next" id="mg-lat-btn">Next</button>
 			</div>
 		</form>
 	</div>

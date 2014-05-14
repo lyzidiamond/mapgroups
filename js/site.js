@@ -96,12 +96,31 @@ function init() {
 	// submit a new map
 	$('#open-add, #close-add').click(function(){
 		$('#add').toggleClass('active');
+		// restart form from beginning when you close the #add pannel
+		if(!$('.field.first').hasClass('current')) {
+			$('.field').hide().removeClass('current');
+			$('.field.first').show().addClass('current');
+			$('#progress').css('width', '0%');
+		}
 	});
 
+	// get number of input fields from form
+	var numFields = $('.field').length;
+	// determine the percentage of completion for each field
+	var progressPercentage = 100/numFields;
+
 	// form sequencing
-	$('#start').click(function(){
-		$('#start-field').hide(200);
-		$(this).next('.field').show(200);
+	$('.next').click(function(){
+		$(this).parent().next('.field').show(200).addClass('current');
+		$(this).parent().removeClass('current').hide(200);
+		var newWidth = progressPercentage+(100*($('#progress').width()/$('#add').width()));
+		$('#progress').css('width', newWidth+'%');
+	});
+	$('.prev').click(function(){
+		$(this).parent().prev('.field').show(200).addClass('current');
+		$(this).parent().removeClass('current').hide(200);
+		var newWidth = (100*($('#progress').width()/$('#add').width()))-progressPercentage;
+		$('#progress').css('width', newWidth+'%');
 	});
 }
 
